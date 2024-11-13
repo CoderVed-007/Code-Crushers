@@ -6,6 +6,10 @@ Features :
 •	Traffic Analytics: Provides data-driven insights for congestion management.
 •	Incident Detection: Detects incidents and traffic violations.
 •	User Dashboard: An interface for administrators to view traffic data and alerts.
+•	Provides real-time traffic updates and optimal route suggestions to drivers. 
+•	Reduces travel time and fuel consumption.
+•	Utilizes machine learning algorithms to analyze historical and real-time traffic data. 
+•	Predicts future traffic patterns to proactively adjust traffic signals and optimize routes.
 Tech Stack :
 •	Backend: Java, Spring Boot, Spring MVC, Spring Data JPA
 •	Frontend: HTML, CSS, JavaScript (for front-end management pages)
