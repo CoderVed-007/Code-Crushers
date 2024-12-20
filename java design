@@ -1,0 +1,166 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.Random;
+
+public class TrafficLightControllerApp {
+    private JFrame frame;
+    private TrafficLightPanel lightPanel;
+    private Timer swingTimer;
+
+    public TrafficLightControllerApp() {
+        // Initialize Swing components
+        frame = new JFrame("Real-Time Traffic Light Controller");
+        frame.setSize(800, 600);
+        frame.setLayout(new BorderLayout()); // Set a valid layout manager
+
+        // Custom Traffic Light Panel
+        lightPanel = new TrafficLightPanel();
+        frame.add(lightPanel, BorderLayout.CENTER);
+
+        // Control Panel with understandable button names
+        JPanel controlPanel = new JPanel(); // Use JPanel for modern Swing applications
+        JButton startSimulationButton = new JButton("Start Traffic Simulation");
+        JButton emergencyModeButton = new JButton("Activate Emergency Mode");
+        controlPanel.add(startSimulationButton);
+        controlPanel.add(emergencyModeButton);
+        frame.add(controlPanel, BorderLayout.SOUTH);
+
+        // Set up button actions
+        startSimulationButton.addActionListener(e -> lightPanel.startTrafficSimulation());
+        emergencyModeButton.addActionListener(e -> lightPanel.toggleEmergencyMode());
+
+        // Set up frame close behavior
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        // Start real-time updates for countdowns
+        startRealTimeUpdates();
+    }
+
+    // Start real-time updates for countdowns
+    private void startRealTimeUpdates() {
+        swingTimer = new Timer(1000, e -> lightPanel.updateCountdown()); // Update every 1 second
+        swingTimer.start();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(TrafficLightControllerApp::new);
+    }
+
+    // Custom Panel for traffic light representation
+    private static class TrafficLightPanel extends JPanel { // Made static to avoid the enclosing instance error
+        private String currentLight = "RED";
+        private int duration = 30; // Example duration
+        private boolean emergencyMode = false;
+        private int trafficDensity = 50; // Example traffic density
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            setBackground(new Color(240, 240, 240)); // Light gray background
+
+            // Draw traffic light frame
+            g.setColor(Color.BLACK);
+            g.fillRect(300, 50, 200, 400);
+
+            // Draw lights
+            drawTrafficLight(g, Color.RED, 350, 75, currentLight.equals("RED"));
+            drawTrafficLight(g, Color.YELLOW, 350, 200, currentLight.equals("YELLOW"));
+            drawTrafficLight(g, Color.GREEN, 350, 325, currentLight.equals("GREEN"));
+
+            // Show duration countdown
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            g.drawString("Time Remaining: " + duration + "s", 320, 470);
+
+            // Emergency mode indicator
+            if (emergencyMode) {
+                g.setColor(Color.ORANGE);
+                g.setFont(new Font("Arial", Font.BOLD, 16));
+                g.drawString("EMERGENCY MODE ACTIVE", 320, 500);
+            }
+
+            // Display traffic density
+            g.setColor(Color.BLUE);
+            g.setFont(new Font("Arial", Font.PLAIN, 14));
+            g.drawString("Traffic Density: " + trafficDensity + "%", 320, 530);
+        }
+
+        private void drawTrafficLight(Graphics g, Color color, int x, int y, boolean active) {
+            g.setColor(active ? color : Color.GRAY);
+            g.fillOval(x, y, 100, 100);
+        }
+
+        // Start traffic simulation with real-time data
+        public void startTrafficSimulation() {
+            trafficDensity = fetchRealTimeTrafficDensity(); // Fetch real-time traffic density
+            adjustLightDurations();
+            repaint();
+        }
+
+        // Toggle emergency mode (extend green light duration)
+        public void toggleEmergencyMode() {
+            emergencyMode = !emergencyMode;
+            if (emergencyMode) {
+                setCurrentLightAndDuration("GREEN", 60); // Extend green light duration in emergency mode
+            } else {
+                startTrafficSimulation();
+            }
+            repaint();
+        }
+
+        // Fetch real-time traffic density (placeholder method)
+        private int fetchRealTimeTrafficDensity() {
+            // Replace with actual API/sensor data fetching logic
+            try {
+                return new Random().nextInt(101); // Generate random traffic density (0-100%)
+            } catch (Exception e) {
+                return 50; // Default value in case of failure
+            }
+        }
+
+        // Adjust light durations based on traffic density
+        private void adjustLightDurations() {
+            if (trafficDensity > 70) {
+                setCurrentLightAndDuration("GREEN", 40); // More green time for high traffic
+            } else if (trafficDensity > 30) {
+                setCurrentLightAndDuration("YELLOW", 10); // Moderate yellow time
+            } else {
+                setCurrentLightAndDuration("RED", 20); // Shorter red time for low traffic
+            }
+        }
+
+        // Set the current light and duration
+        public void setCurrentLightAndDuration(String light, int duration) {
+            this.currentLight = light;
+            this.duration = duration;
+        }
+
+        // Update countdown timer
+        public void updateCountdown() {
+            if (duration > 0) {
+                duration--;
+                repaint();
+            } else {
+                cycleToNextLight(); // Cycle to the next light state
+            }
+        }
+
+        // Cycle to the next light state
+        private void cycleToNextLight() {
+            switch (currentLight) {
+                case "RED":
+                    setCurrentLightAndDuration("GREEN", 30);
+                    break;
+                case "GREEN":
+                    setCurrentLightAndDuration("YELLOW", 10);
+                    break;
+                case "YELLOW":
+                    setCurrentLightAndDuration("RED", 30);
+                    break;
+            }
+            repaint();
+        }
+    }
+}
