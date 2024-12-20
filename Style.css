@@ -1,0 +1,151 @@
+
+/* General Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+header {
+    background-color: rgb(161, 204, 209);
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height: 50px;
+   
+}
+.navbar {
+    /* background-color: transparent; */
+    background-color: #A1CCD1; /* Transparent white background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border-bottom: 2px solid black;
+    padding: 10px 20px;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-menu li {
+    display: inline-block;
+}
+
+.navbar-menu li a {
+    margin-left: 100px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: all 0.35 ease-out 0.35;
+}
+
+.navbar-menu li a:hover {
+    color: black;
+    transform: scale(1.1); /* Scale up the font */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3)
+}
+
+
+/* header nav a {
+    text-decoration: none;
+    color: rgb(39, 38, 38);
+    
+    font-weight: bold;
+}
+header nav a:hover{
+    color: black;
+    transform: scale(1.1); 
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3)
+     
+}*/
+header h1 {
+    margin: 0;
+    font-size: medium;
+}
+
+main {
+    padding: 1rem;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background-color: #bccdc9;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+}
+.card:hover{
+    color: black;
+    
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+.card h2 {
+    margin-top: 0;
+}
+
+.card button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(124, 157, 150);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease; /* Smooth animation */
+}
+
+.card button:hover {
+    background-color: #5a736e;
+    transform: translateY(-5px); /* Moves the button upward */
+}
+
+.map-section {
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color:black;
+    color: white;
+}
