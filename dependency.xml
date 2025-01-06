@@ -1,0 +1,10 @@
+<dependency>
+    <groupId>javax.servlet.jsp.jstl</groupId>
+    <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+    <version>1.2.0</version>
+</dependency>
+<dependency>
+    <groupId>org.glassfish</groupId>
+    <artifactId>javax.servlet.jsp.jstl</artifactId>
+    <version>1.2.0</version>
+</dependency>
