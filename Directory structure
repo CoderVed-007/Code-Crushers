@@ -1,0 +1,8 @@
+src/main/java/com/smarttraffic/management/
+    - TrafficManagementServlet.java
+    - UserRegistrationServlet.java
+src/main/webapp/
+    - WEB-INF/web.xml
+    - index.jsp
+    - profile.jsp
+    - registration.jsp
